@@ -4,7 +4,422 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sohyun Phone Peeking</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      user-select: none;
+    }
+
+    body {
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    /* FRAME HP iPHONE 15 PRO */
+    .phone-frame {
+      width: 360px;
+      height: 720px;
+      background: #000;
+      border: 10px solid #2d2d2d;
+      border-radius: 48px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    }
+
+    .dynamic-island {
+      width: 110px;
+      height: 30px;
+      background: #000;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 20px;
+      z-index: 100;
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 22px 0 22px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 90;
+    }
+
+    .screen {
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-size: cover;
+      background-position: center;
+      overflow-y: auto;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 1. LOCKSCREEN & PASSCODE */
+    #lockscreen {
+      background-image: url('sohyun & xinyu ｡  ☆ !! ˚.jpg');
+      background-size: cover;
+      background-position: center;
+      justify-content: space-between;
+      padding: 70px 20px 40px 20px;
+      color: white;
+      text-align: center;
+    }
+
+    .clock h1 {
+      font-size: 64px;
+      font-weight: 200;
+      letter-spacing: -2px;
+      margin-top: 5px;
+    }
+
+    .clock p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .passcode-container {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .passcode-label {
+      font-size: 14px;
+      margin-bottom: 12px;
+      opacity: 0.9;
+    }
+
+    .dots-container {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 15px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border: 2px solid white;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+
+    .dot.filled {
+      background: white;
+    }
+
+    .error-msg {
+      color: #ff3b30;
+      font-size: 12px;
+      height: 16px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px 25px;
+      width: 240px;
+    }
+
+    .keypad button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      font-size: 22px;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+
+    .keypad button:active {
+      background: rgba(255,255,255,0.4);
+    }
+
+    .keypad button.empty {
+      background: transparent;
+      backdrop-filter: none;
+      cursor: default;
+    }
+
+    /* 2. HOMESCREEN */
+    #homescreen {
+      background-image: url('sohyun & xinyu ｡  ☆ !! ˚.jpg');
+      background-size: cover;
+      padding: 60px 16px 20px 16px;
+      justify-content: space-between;
+    }
+
+    .music-widget {
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
+      border-radius: 22px;
+      padding: 16px;
+      color: white;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    .music-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 2px;
+      margin: 12px 0 4px 0;
+    }
+
+    .progress {
+      width: 35%;
+      height: 100%;
+      background: white;
+      border-radius: 2px;
+    }
+
+    .time-stamp {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      opacity: 0.8;
+    }
+
+    .music-controls {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 6px;
+    }
+
+    .music-controls button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .app-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: white;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .app-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .photo-icon { background: #fff; }
+    .note-icon { background: #ffd60a; }
+    .music-icon { background: #ff3b30; }
+    .calc-icon { background: #333; }
+
+    .dock {
+      background: rgba(255,255,255,0.3);
+      backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .dock-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .phone-icon { background: #34c759; }
+    .msg-icon { background: #30d158; }
+    .kakao-icon { background: #fee500; color: #000; }
+    .ig-icon { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+
+    /* GENERAL APP HEADER */
+    .app-header {
+      padding: 55px 16px 15px 16px;
+      background: #f8f8f8;
+      border-bottom: 1px solid #ddd;
+      color: #000;
+    }
+
+    /* 3. GALERI FOTO */
+    #gallery-app { background: #fff; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      padding: 3px;
+    }
+    .gallery-grid img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    /* 4. CATATAN */
+    #notes-app { background: #f2f2f7; color: #000; }
+    .notes-content { padding: 16px; }
+    .note-card {
+      background: white;
+      padding: 14px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    /* 5. MUSIK */
+    #music-app { background: #1c1c1e; color: white; }
+    .music-full-player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .player-cover {
+      width: 220px;
+      height: 220px;
+      border-radius: 16px;
+      object-fit: cover;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .player-controls {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      margin-top: 30px;
+    }
+    .player-controls button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* 6. KALKULATOR */
+    #calc-app { background: #000; color: white; justify-content: flex-end; padding-bottom: 40px; }
+    .calc-display { font-size: 56px; text-align: right; padding: 20px; }
+    .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; }
+    .calc-btn {
+      height: 65px; border-radius: 50%; border: none; background: #333; color: white; font-size: 24px; cursor: pointer;
+    }
+    .calc-btn.gray { background: #a5a5a5; color: black; }
+    .calc-btn.orange { background: #ff9f0a; }
+    .calc-btn.zero { grid-column: span 2; border-radius: 35px; text-align: left; padding-left: 25px; }
+
+    /* 7. TELEPON */
+    #phone-app { background: #1c1c1e; color: white; justify-content: center; align-items: center; }
+    .call-container { text-align: center; }
+    .caller-avatar {
+      width: 90px; height: 90px; background: #333; border-radius: 50%; display: flex;
+      justify-content: center; align-items: center; font-size: 32px; margin: 0 auto 15px auto;
+    }
+    .end-call-btn { width: 65px; height: 65px; border-radius: 50%; background: #ff3b30; border: none; color: white; font-size: 28px; margin-top: 50px; }
+
+    /* 8. PESAN */
+    #msg-app { background: #fff; color: #000; }
+    .chat-container { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .chat-bubble { max-width: 75%; padding: 10px 14px; border-radius: 18px; font-size: 13px; }
+    .chat-bubble.left { background: #e9e9eb; align-self: flex-start; }
+    .chat-bubble.right { background: #007aff; color: white; align-self: flex-end; }
+
+    /* 9. KAKAOTALK */
+    #kakao-app { background: #fff; color: #000; }
+    .yellow-header { background: #fee500; }
+    .kakao-list { padding: 10px; }
+    .kakao-item { display: flex; gap: 12px; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
+    .kakao-avatar { width: 45px; height: 45px; background: #333; color: white; border-radius: 18px; display: flex; justify-content: center; align-items: center; font-weight: bold; }
+
+    /* 10. INSTAGRAM */
+    #ig-app, #ig-profile { background: #fff; color: #000; padding-top: 50px; padding-bottom: 60px; }
+    .ig-header { display: flex; justify-content: space-between; align-items: center; padding: 0 16px 10px 16px; border-bottom: 1px solid #efefef; }
+    .ig-header-icons { display: flex; gap: 15px; font-size: 20px; }
+    .badge-num { background: #ff3b30; color: white; font-size: 10px; padding: 2px 5px; border-radius: 10px; }
+    .ig-stories { display: flex; gap: 14px; padding: 12px 16px; overflow-x: auto; border-bottom: 1px solid #efefef; }
+    .story-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; gap: 4px; cursor: pointer; }
+    .story-ring { width: 56px; height: 56px; border-radius: 50%; padding: 2px; background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); display: flex; justify-content: center; align-items: center; }
+    .story-my { background: #4cd964; }
+    .avatar-text { width: 100%; height: 100%; background: #262626; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 14px; }
+    .post-header { display: flex; justify-content: space-between; padding: 10px 16px; align-items: center; }
+    .post-user { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13px; }
+    .mini-avatar { width: 28px; height: 28px; background: #111; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; }
+    .post-image img { width: 100%; height: 320px; object-fit: cover; }
+    .post-actions { padding: 10px 16px; display: flex; gap: 15px; font-size: 20px; }
+    .post-likes { padding: 0 16px; font-size: 12px; }
+    .post-caption { padding: 4px 16px 20px 16px; font-size: 12px; }
+    .profile-top { display: flex; padding: 16px; align-items: center; gap: 20px; }
+    .profile-avatar { width: 70px; height: 70px; background: #111; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; font-weight: bold; }
+    .profile-stats { display: flex; gap: 20px; text-align: center; font-size: 13px; }
+    .profile-bio { padding: 0 16px 12px 16px; font-size: 12px; }
+    .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .profile-grid img { width: 100%; height: 110px; object-fit: cover; }
+    .ig-nav { position: absolute; bottom: 0; width: 100%; display: flex; justify-content: space-around; padding: 12px 0 20px 0; border-top: 1px solid #efefef; background: white; }
+    .ig-nav button { background: none; border: none; font-size: 20px; cursor: pointer; }
+
+    /* OVERLAY ZOOM FOTO */
+    .photo-modal { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 200; }
+    .photo-modal img { max-width: 90%; max-height: 80%; border-radius: 12px; }
+
+    /* HOME INDICATOR STRIP */
+    .home-indicator { width: 120px; height: 4px; background: rgba(255,255,255,0.8); border-radius: 2px; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 100; cursor: pointer; }
+  </style>
 </head>
 <body>
 
@@ -16,59 +431,12 @@
 
     <!-- Status Bar -->
     <div class="status-bar">
-      <span id="current-time">12:39</span>
+      <span id="current-time">11:22</span>
       <div class="status-icons">📶 📶 🔋</div>
     </div>
 
-   
-<!-- 1. SKRIN LOCKSCREEN DENGAN SANDI -->
+    <!-- 1. LOCKSCREEN DENGAN INPUT SANDI -->
     <div id="lockscreen" class="screen active">
-      <div class="status-bar">
-        <span>11:22</span>
-        <div class="status-icons">📶 🔋</div>
-      </div>
-      
-      <div class="clock">
-        <p id="date">Monday, 19 October 2026</p>
-        <h1>11:22</h1>
-      </div>
-
-      <!-- Tampilan Input Sandi -->
-      <div class="passcode-container">
-        <p class="passcode-label">Masukkan Sandi</p>
-        <div class="dots-container">
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </div>
-        <p id="error-msg" class="error-msg"></p>
-
-        <!-- Keypad Angka -->
-        <div class="keypad">
-          <button onclick="pressNum('1')">1</button>
-          <button onclick="pressNum('2')">2</button>
-          <button onclick="pressNum('3')">3</button>
-          <button onclick="pressNum('4')">4</button>
-          <button onclick="pressNum('5')">5</button>
-          <button onclick="pressNum('6')">6</button>
-          <button onclick="pressNum('7')">7</button>
-          <button onclick="pressNum('8')">8</button>
-          <button onclick="pressNum('9')">9</button>
-          <button class="empty"></button>
-          <button onclick="pressNum('0')">0</button>
-          <button onclick="clearPin()">⌫</button>
-        </div>
-      </div>
-    </div>
-      
-<!-- 1. SKRIN LOCKSCREEN DENGAN SANDI -->
-    <div id="lockscreen" class="screen active">
-      <div class="status-bar">
-        <span>11:22</span>
-        <div class="status-icons">📶 🔋</div>
-      </div>
-      
       <div class="clock">
         <p id="date">Kamis, 22 Oktober</p>
         <h1>11:22</h1>
@@ -158,7 +526,7 @@
     <!-- 3. APLIKASI FOTO (GALERI) -->
     <div id="gallery-app" class="screen">
       <div class="app-header">
-        <h3>Galeri Foto Sora/h3>
+        <h3>Galeri Foto Sora</h3>
       </div>
       <div class="gallery-grid">
         <img src="Sohyun S14.jpg" onclick="zoomPhoto(this)">
@@ -167,7 +535,7 @@
         <img src="sohyun & xinyu ｡  ☆ !! ˚.jpg" onclick="zoomPhoto(this)">
         <img src="sohyun xinyu soxinz tripleS.jpg" onclick="zoomPhoto(this)">
         <img src="download (3).jpg" onclick="zoomPhoto(this)">
-        <img src="عა bubbles ૮3 .jpg" onclick="zoomPhoto(this)">
+        <img src="عbubbles ૮3 .jpg" onclick="zoomPhoto(this)">
         <img src="💟.jpg" onclick="zoomPhoto(this)">
       </div>
     </div>
@@ -331,7 +699,7 @@
       </div>
     </div>
 
-    <!-- 11. PROFIL INSTAGRAM SOHYUN -->
+    <!-- 11. PROFIL INSTAGRAM -->
     <div id="ig-profile" class="screen">
       <div class="ig-header">
         <h2>soranghaeyoww_ ▾</h2>
@@ -377,7 +745,99 @@
 
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // System Navigasi Buka Aplikasi
+    function openApp(appId) {
+      let screens = document.querySelectorAll('.screen');
+      screens.forEach(screen => screen.classList.remove('active'));
+      
+      let targetApp = document.getElementById(appId);
+      if (targetApp) {
+        targetApp.classList.add('active');
+      }
+    }
+
+    // Logic Lockscreen & Passcode (Sandi: 1234 atau Bebas/Apapun Boleh)
+    let currentPin = "";
+    const correctPin = "1234"; // Sandi default "1234" (Bisa diketik sandi apa saja)
+
+    function pressNum(num) {
+      if (currentPin.length < 4) {
+        currentPin += num;
+        updateDots();
+      }
+
+      if (currentPin.length === 4) {
+        setTimeout(() => {
+          // Kamu bisa ganti angka ini jika ingin pin khusus, atau biarkan bebas masuk
+          if (currentPin === correctPin || currentPin.length === 4) {
+            document.getElementById('error-msg').innerText = "";
+            openApp('homescreen');
+            clearPin();
+          } else {
+            document.getElementById('error-msg').innerText = "Sandi Salah!";
+            clearPin();
+          }
+        }, 200);
+      }
+    }
+
+    function updateDots() {
+      let dots = document.querySelectorAll('.dot');
+      dots.forEach((dot, index) => {
+        if (index < currentPin.length) {
+          dot.classList.add('filled');
+        } else {
+          dot.classList.remove('filled');
+        }
+      });
+    }
+
+    function clearPin() {
+      currentPin = "";
+      updateDots();
+    }
+
+    // Fitur Zoom Foto
+    function zoomPhoto(element) {
+      let modal = document.getElementById('photo-modal');
+      let modalImg = document.getElementById('modal-img');
+      modalImg.src = element.src;
+      modal.style.display = 'flex';
+    }
+
+    function closePhoto() {
+      document.getElementById('photo-modal').style.display = 'none';
+    }
+
+    // Logic Kalkulator
+    let calcValue = "";
+
+    function calcInput(val) {
+      let display = document.getElementById('calc-display');
+      if (display.innerText === "0") {
+        calcValue = val;
+      } else {
+        calcValue += val;
+      }
+      display.innerText = calcValue;
+    }
+
+    function calcClear() {
+      calcValue = "";
+      document.getElementById('calc-display').innerText = "0";
+    }
+
+    function calcEqual() {
+      try {
+        calcValue = eval(calcValue).toString();
+        document.getElementById('calc-display').innerText = calcValue;
+      } catch (e) {
+        document.getElementById('calc-display').innerText = "Error";
+        calcValue = "";
+      }
+    }
+  </script>
 </body>
 </html>
 
