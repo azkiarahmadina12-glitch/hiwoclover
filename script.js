@@ -1,5 +1,5 @@
 // Atur Sandi / PIN Rahasia Kamu di Sini (Contoh: 1234 atau tanggal lahir)
-const CORRECT_PIN = "1234"; 
+const CORRECT_PIN = "2521"; 
 let enteredPin = "";
 
 function pressNum(num) {
