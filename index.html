@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sohyun Phone Peeking</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="phone-frame">
+    
+    <div class="notch"></div>
+
+    <div id="lockscreen" class="screen active">
+      <div class="status-bar">
+        <span>11:22</span>
+        <div class="status-icons">📶 🔋</div>
+      </div>
+      
+      <div class="clock">
+        <p id="date">Senin, 19 Oktober</p>
+        <h1>11:22</h1>
+      </div>
+
+      <div class="lockscreen-content">
+        <!-- Foto Lockscreen pakai Sohyun S14.jpg -->
+        <img src="Sohyun S14.jpg" alt="Lockscreen">
+      </div>
+
+      <button class="unlock-btn" onclick="unlockPhone()">Nyahkunci / Klik 🔓</button>
+    </div>
+
+    <!-- 2. SKRIN GALERI FOTO -->
+    <div id="gallery-screen" class="screen">
+      <div class="app-header">
+        <h2>사진 (Foto)</h2>
+        <span class="add-icon">+</span>
+      </div>
+
+      <div class="gallery-grid">
+        <!-- Menggunakan foto-foto yang ada di GitHub kamu -->
+        <img src="Sohyun S14.jpg" onclick="openPhoto('Sohyun S14 ✨')">
+        <img src="Xinyu & Sohyun update.jpg" onclick="openPhoto('Xinyu & Sohyun 💖')">
+        <img src="download (3).jpg" onclick="openPhoto('Foto 3 🌸')">
+        <img src="seoyeon & sohyun.jpg" onclick="openPhoto('Seoyeon & Sohyun 📸')">
+        <img src="sohyun & xinyu ｡ 💻 !! ˚.jpg" onclick="openPhoto('Sohyun & Xinyu 💫')">
+        <img src="sohyun xinyu soxinz tripleS.jpg" onclick="openPhoto('tripleS Soxinz 🌟')">
+        <img src="عა bubbles ૮3 .jpg" onclick="openPhoto('Bubbles 🫧')">
+        <img src="💟.jpg" onclick="openPhoto('Heart 💕')">
+      </div>
+    </div>
+
+    <!-- 3. SKRIN SEMBANG (CHAT) -->
+    <div id="chat-screen" class="screen">
+      <div class="app-header">
+        <h2>채팅 (Sembang)</h2>
+        <div class="chat-icons">🔍 💬 ⚙️</div>
+      </div>
+
+      <div class="chat-list">
+        <div class="chat-item">
+          <div class="avatar green">소</div>
+          <div class="chat-info">
+            <div class="chat-top">
+              <span class="name">Sohyun 📌</span>
+              <span class="time">Mlm 10:37</span>
+            </div>
+            <p class="message">Kamu lagi ngapain?</p>
+          </div>
+        </div>
+
+        <div class="chat-item">
+          <div class="avatar pink">신</div>
+          <div class="chat-info">
+            <div class="chat-top">
+              <span class="name">Xinyu</span>
+              <span class="time">Mlm 9:53</span>
+            </div>
+            <p class="message">Jangan lupa makan ya!</p>
+          </div>
+          <span class="badge">1</span>
+        </div>
+
+        <div class="chat-item">
+          <div class="avatar purple">서</div>
+          <div class="chat-info">
+            <div class="chat-top">
+              <span class="name">Seoyeon</span>
+              <span class="time">Mlm 9:16</span>
+            </div>
+            <p class="message">Foto kita yang kemarin bagus bgt</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENU NAVIGASI BAWAH -->
+    <div id="bottom-nav" class="bottom-nav">
+      <button onclick="switchTab('gallery-screen')">🖼️ Galeri</button>
+      <button onclick="switchTab('chat-screen')">💬 Chat</button>
+      <button onclick="lockPhone()">🔒 Kunci</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
