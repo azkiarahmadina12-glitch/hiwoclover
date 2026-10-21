@@ -8,10 +8,20 @@
 </head>
 <body>
 
+  <!-- FRAME HP iPHONE 15 PRO -->
   <div class="phone-frame">
     
-    <div class="notch"></div>
+    <!-- Dynamic Island -->
+    <div class="dynamic-island"></div>
 
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span id="current-time">12:39</span>
+      <div class="status-icons">📶 📶 🔋</div>
+    </div>
+
+   
+<!-- 1. SKRIN LOCKSCREEN DENGAN SANDI -->
     <div id="lockscreen" class="screen active">
       <div class="status-bar">
         <span>11:22</span>
@@ -19,91 +29,355 @@
       </div>
       
       <div class="clock">
-        <p id="date">Senin, 19 Oktober</p>
+        <p id="date">Monday, 19 October 2026</p>
         <h1>11:22</h1>
       </div>
 
-      <div class="lockscreen-content">
-        <!-- Foto Lockscreen pakai Sohyun S14.jpg -->
-        <img src="Sohyun S14.jpg" alt="Lockscreen">
+      <!-- Tampilan Input Sandi -->
+      <div class="passcode-container">
+        <p class="passcode-label">Masukkan Sandi</p>
+        <div class="dots-container">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <p id="error-msg" class="error-msg"></p>
+
+        <!-- Keypad Angka -->
+        <div class="keypad">
+          <button onclick="pressNum('1')">1</button>
+          <button onclick="pressNum('2')">2</button>
+          <button onclick="pressNum('3')">3</button>
+          <button onclick="pressNum('4')">4</button>
+          <button onclick="pressNum('5')">5</button>
+          <button onclick="pressNum('6')">6</button>
+          <button onclick="pressNum('7')">7</button>
+          <button onclick="pressNum('8')">8</button>
+          <button onclick="pressNum('9')">9</button>
+          <button class="empty"></button>
+          <button onclick="pressNum('2323')">2323</button>
+          <button onclick="clearPin()">⌫</button>
+        </div>
+      </div>
+    </div>
+      
+<!-- 1. SKRIN LOCKSCREEN DENGAN SANDI -->
+    <div id="lockscreen" class="screen active">
+      <div class="status-bar">
+        <span>11:22</span>
+        <div class="status-icons">📶 🔋</div>
+      </div>
+      
+      <div class="clock">
+        <p id="date">Kamis, 22 Oktober</p>
+        <h1>11:22</h1>
       </div>
 
-      <button class="unlock-btn" onclick="unlockPhone()">Nyahkunci / Klik 🔓</button>
+      <!-- Tampilan Input Sandi -->
+      <div class="passcode-container">
+        <p class="passcode-label">Masukkan Sandi</p>
+        <div class="dots-container">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <p id="error-msg" class="error-msg"></p>
+
+        <!-- Keypad Angka -->
+        <div class="keypad">
+          <button onclick="pressNum('1')">1</button>
+          <button onclick="pressNum('2')">2</button>
+          <button onclick="pressNum('3')">3</button>
+          <button onclick="pressNum('4')">4</button>
+          <button onclick="pressNum('5')">5</button>
+          <button onclick="pressNum('6')">6</button>
+          <button onclick="pressNum('7')">7</button>
+          <button onclick="pressNum('8')">8</button>
+          <button onclick="pressNum('9')">9</button>
+          <button class="empty"></button>
+          <button onclick="pressNum('0')">0</button>
+          <button onclick="clearPin()">⌫</button>
+        </div>
+      </div>
     </div>
 
-    <!-- 2. SKRIN GALERI FOTO -->
-    <div id="gallery-screen" class="screen">
-      <div class="app-header">
-        <h2>사진 (Foto)</h2>
-        <span class="add-icon">+</span>
+    <!-- 2. HOMESCREEN -->
+    <div id="homescreen" class="screen">
+      <!-- Widget Musik -->
+      <div class="music-widget" onclick="openApp('music-app')">
+        <div class="music-info">
+          <div>
+            <h4>Tree</h4>
+            <p>Car The Garden</p>
+          </div>
+          <span class="music-note">🎵</span>
+        </div>
+        <div class="progress-bar"><div class="progress"></div></div>
+        <div class="time-stamp">
+          <span>1:24</span>
+          <span>-2:09</span>
+        </div>
+        <div class="music-controls">
+          <button>⏮</button>
+          <button>⏸</button>
+          <button>⏭</button>
+        </div>
       </div>
 
+      <!-- Grid Aplikasi Utama -->
+      <div class="app-grid">
+        <div class="app-item" onclick="openApp('gallery-app')">
+          <div class="app-icon photo-icon">🌸</div>
+          <span>Foto</span>
+        </div>
+        <div class="app-item" onclick="openApp('notes-app')">
+          <div class="app-icon note-icon">📝</div>
+          <span>Catatan</span>
+        </div>
+        <div class="app-item" onclick="openApp('music-app')">
+          <div class="app-icon music-icon">🎵</div>
+          <span>Musik</span>
+        </div>
+        <div class="app-item" onclick="openApp('calc-app')">
+          <div class="app-icon calc-icon">🔢</div>
+          <span>Kalkulator</span>
+        </div>
+      </div>
+
+      <!-- Dock Bawah -->
+      <div class="dock">
+        <div class="dock-icon phone-icon" onclick="openApp('phone-app')">📞</div>
+        <div class="dock-icon msg-icon" onclick="openApp('msg-app')">💬</div>
+        <div class="dock-icon kakao-icon" onclick="openApp('kakao-app')">💛</div>
+        <div class="dock-icon ig-icon" onclick="openApp('ig-app')">📸</div>
+      </div>
+    </div>
+
+    <!-- 3. APLIKASI FOTO (GALERI) -->
+    <div id="gallery-app" class="screen">
+      <div class="app-header">
+        <h3>Galeri Foto Sora/h3>
+      </div>
       <div class="gallery-grid">
-        <!-- Menggunakan foto-foto yang ada di GitHub kamu -->
-        <img src="Sohyun S14.jpg" onclick="openPhoto('Sohyun S14 ✨')">
-        <img src="Xinyu & Sohyun update.jpg" onclick="openPhoto('Xinyu & Sohyun 💖')">
-        <img src="download (3).jpg" onclick="openPhoto('Foto 3 🌸')">
-        <img src="seoyeon & sohyun.jpg" onclick="openPhoto('Seoyeon & Sohyun 📸')">
-        <img src="sohyun & xinyu ｡ 💻 !! ˚.jpg" onclick="openPhoto('Sohyun & Xinyu 💫')">
-        <img src="sohyun xinyu soxinz tripleS.jpg" onclick="openPhoto('tripleS Soxinz 🌟')">
-        <img src="عა bubbles ૮3 .jpg" onclick="openPhoto('Bubbles 🫧')">
-        <img src="💟.jpg" onclick="openPhoto('Heart 💕')">
+        <img src="Sohyun S14.jpg" onclick="zoomPhoto(this)">
+        <img src="Xinyu & Sohyun update.jpg" onclick="zoomPhoto(this)">
+        <img src="seoyeon & sohyun.jpg" onclick="zoomPhoto(this)">
+        <img src="sohyun & xinyu ｡  ☆ !! ˚.jpg" onclick="zoomPhoto(this)">
+        <img src="sohyun xinyu soxinz tripleS.jpg" onclick="zoomPhoto(this)">
+        <img src="download (3).jpg" onclick="zoomPhoto(this)">
+        <img src="عა bubbles ૮3 .jpg" onclick="zoomPhoto(this)">
+        <img src="💟.jpg" onclick="zoomPhoto(this)">
       </div>
     </div>
 
-    <!-- 3. SKRIN SEMBANG (CHAT) -->
-    <div id="chat-screen" class="screen">
+    <!-- 4. APLIKASI CATATAN -->
+    <div id="notes-app" class="screen">
       <div class="app-header">
-        <h2>채팅 (Sembang)</h2>
-        <div class="chat-icons">🔍 💬 ⚙️</div>
+        <h3>Catatan Sora 📝</h3>
       </div>
+      <div class="notes-content">
+        <div class="note-card">
+          <b>📌 Pesan Pengingat</b>
+          <p>jangan lupa minum air obat! 🍀</p>
+        </div>
+        <div class="note-card">
+          <b>🎧 Playlist Favorit</b>
+          <p>1. HyoRiSoo - SKIBIDI<br>2. SHinee - Replay<br>3. BABYMONSTER - Really Like You</p>
+        </div>
+      </div>
+    </div>
 
-      <div class="chat-list">
-        <div class="chat-item">
-          <div class="avatar green">소</div>
-          <div class="chat-info">
-            <div class="chat-top">
-              <span class="name">Sohyun 📌</span>
-              <span class="time">Mlm 10:37</span>
-            </div>
-            <p class="message">Kamu lagi ngapain?</p>
+    <!-- 5. APLIKASI MUSIK -->
+    <div id="music-app" class="screen">
+      <div class="app-header">
+        <h3>Pemutar Musik 🎵</h3>
+      </div>
+      <div class="music-full-player">
+        <img src="Sohyun S14.jpg" class="player-cover">
+        <h2>Lover</h2>
+        <p>Sora Xiyu</p>
+        <div class="player-controls">
+          <button>⏮</button>
+          <button class="play-btn">▶</button>
+          <button>⏭</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. APLIKASI KALKULATOR -->
+    <div id="calc-app" class="screen">
+      <div class="calc-display" id="calc-display">0</div>
+      <div class="calc-grid">
+        <button onclick="calcClear()" class="calc-btn gray">C</button>
+        <button onclick="calcInput('/')" class="calc-btn orange">÷</button>
+        <button onclick="calcInput('*')" class="calc-btn orange">×</button>
+        <button onclick="calcInput('-')" class="calc-btn orange">-</button>
+        
+        <button onclick="calcInput('7')" class="calc-btn">7</button>
+        <button onclick="calcInput('8')" class="calc-btn">8</button>
+        <button onclick="calcInput('9')" class="calc-btn">9</button>
+        <button onclick="calcInput('+')" class="calc-btn orange">+</button>
+        
+        <button onclick="calcInput('4')" class="calc-btn">4</button>
+        <button onclick="calcInput('5')" class="calc-btn">5</button>
+        <button onclick="calcInput('6')" class="calc-btn">6</button>
+        <button onclick="calcEqual()" class="calc-btn orange">=</button>
+        
+        <button onclick="calcInput('1')" class="calc-btn">1</button>
+        <button onclick="calcInput('2')" class="calc-btn">2</button>
+        <button onclick="calcInput('3')" class="calc-btn">3</button>
+        <button onclick="calcInput('0')" class="calc-btn zero">0</button>
+      </div>
+    </div>
+
+    <!-- 7. APLIKASI TELEPON -->
+    <div id="phone-app" class="screen">
+      <div class="call-container">
+        <div class="caller-avatar">S14</div>
+        <h2>Sora-yaa 🍀</h2>
+        <p>Memanggil...</p>
+        <div class="call-actions">
+          <button class="end-call-btn" onclick="openApp('homescreen')">📞</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. APLIKASI PESAN -->
+    <div id="msg-app" class="screen">
+      <div class="app-header">
+        <h3>Xiyu 💕</h3>
+      </div>
+      <div class="chat-container">
+        <div class="chat-bubble left">kamu lagi ngapainn? 😊</div>
+        <div class="chat-bubble right">lagi liat foto foto yang tadi, bingung milihnya...~</div>
+        <div class="chat-bubble left">wkwkwk! jangan lupa makan siang ya!wopyu 🍀</div>
+      </div>
+    </div>
+
+    <!-- 9. APLIKASI KAKAOTALK -->
+    <div id="kakao-app" class="screen">
+      <div class="app-header yellow-header">
+        <h3>girlss 💛</h3>
+      </div>
+      <div class="kakao-list">
+        <div class="kakao-item">
+          <div class="kakao-avatar">S14</div>
+          <div>
+            <b>Sora-yaa </b>
+            <p>kalian udah ngerjain pr??</p>
           </div>
         </div>
-
-        <div class="chat-item">
-          <div class="avatar pink">신</div>
-          <div class="chat-info">
-            <div class="chat-top">
-              <span class="name">Xinyu</span>
-              <span class="time">Mlm 9:53</span>
-            </div>
-            <p class="message">Jangan lupa makan ya!</p>
-          </div>
-          <span class="badge">1</span>
-        </div>
-
-        <div class="chat-item">
-          <div class="avatar purple">서</div>
-          <div class="chat-info">
-            <div class="chat-top">
-              <span class="name">Seoyeon</span>
-              <span class="time">Mlm 9:16</span>
-            </div>
-            <p class="message">Foto kita yang kemarin bagus bgt</p>
+        <div class="kakao-item">
+          <div class="kakao-avatar">XIN</div>
+          <div>
+            <b>Xiyu ✨</b>
+            <p>udah dong! mau makan bareng nanti?</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- MENU NAVIGASI BAWAH -->
-    <div id="bottom-nav" class="bottom-nav">
-      <button onclick="switchTab('gallery-screen')">🖼️ Galeri</button>
-      <button onclick="switchTab('chat-screen')">💬 Chat</button>
-      <button onclick="lockPhone()">🔒 Kunci</button>
+    <!-- 10. APLIKASI INSTAGRAM -->
+    <div id="ig-app" class="screen">
+      <div class="ig-header">
+        <h2>Instagram</h2>
+        <div class="ig-header-icons">
+          <span>♡</span>
+          <span>⚡ <small class="badge-num">27</small></span>
+        </div>
+      </div>
+
+      <!-- Stories -->
+      <div class="ig-stories">
+        <div class="story-item" onclick="openApp('ig-profile')">
+          <div class="story-ring story-my"><span class="avatar-text">S14</span></div>
+          <span>Cerita Saya</span>
+        </div>
+        <div class="story-item">
+          <div class="story-ring"><span class="avatar-text">XIN</span></div>
+          <span>xiyu</span>
+        </div>
+        <div class="story-item">
+          <div class="story-ring"><span class="avatar-text">SEO</span></div>
+          <span>seori</span>
+        </div>
+      </div>
+
+      <!-- Feed Post -->
+      <div class="ig-feed">
+        <div class="post-header">
+          <div class="post-user">
+            <div class="mini-avatar">S14</div>
+            <span>soranghaeyoww_</span>
+          </div>
+          <span>•••</span>
+        </div>
+        <div class="post-image">
+          <img src="Sohyun S14.jpg" alt="Foto Sohyun">
+        </div>
+        <div class="post-actions">
+          <span>♡</span> <span>💬</span> <span>✈</span>
+        </div>
+        <div class="post-likes">Suka oleh <b>xiyu8776</b> dan <b>62.800 lainnya</b></div>
+        <div class="post-caption"><b>soranghaeyoww_</b> Hari yang menyenangkan bareng kalian~ 💖 ✨</div>
+      </div>
+
+      <div class="ig-nav">
+        <button onclick="openApp('ig-app')">🏠</button>
+        <button>🔍</button>
+        <button onclick="openApp('ig-profile')">👤</button>
+      </div>
     </div>
+
+    <!-- 11. PROFIL INSTAGRAM SOHYUN -->
+    <div id="ig-profile" class="screen">
+      <div class="ig-header">
+        <h2>soranghaeyoww_ ▾</h2>
+      </div>
+
+      <div class="profile-top">
+        <div class="profile-avatar">S14</div>
+        <div class="profile-stats">
+          <div><b>8</b><br><small>Postingan</small></div>
+          <div><b>628 rb</b><br><small>Pengikut</small></div>
+          <div><b>24</b><br><small>Mengikuti</small></div>
+        </div>
+      </div>
+
+      <div class="profile-bio">
+        <b>Sora Shenina 🍀</b>
+        <p>DM FOR ENDORSE</p>
+      </div>
+
+      <div class="profile-grid">
+        <img src="Sohyun S14.jpg" onclick="zoomPhoto(this)">
+        <img src="Xinyu & Sohyun update.jpg" onclick="zoomPhoto(this)">
+        <img src="seoyeon & sohyun.jpg" onclick="zoomPhoto(this)">
+        <img src="sohyun & xinyu ｡  ☆ !! ˚.jpg" onclick="zoomPhoto(this)">
+        <img src="sohyun xinyu soxinz tripleS.jpg" onclick="zoomPhoto(this)">
+        <img src="download (3).jpg" onclick="zoomPhoto(this)">
+      </div>
+
+      <div class="ig-nav">
+        <button onclick="openApp('ig-app')">🏠</button>
+        <button>🔍</button>
+        <button class="active-tab">👤</button>
+      </div>
+    </div>
+
+    <!-- Overlay Zoom Foto -->
+    <div id="photo-modal" class="photo-modal" onclick="closePhoto()">
+      <img id="modal-img" src="">
+    </div>
+
+    <!-- Home Indicator Strip (Klik untuk kembali ke Homescreen Utama) -->
+    <div class="home-indicator" onclick="openApp('homescreen')"></div>
 
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
